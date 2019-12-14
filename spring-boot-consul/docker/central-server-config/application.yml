@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+        healthCheckPath: /actuator/health
+        #healthCheckPath: /custom-health-check
+        #healthCheckPath: /custom-health-check-forbidden
+        healthCheckInterval: 15s
+        healthCheckTimeout: 60s
+        health-check-critical-timeout: 5m
+        prefer-ip-address: true
+
+server:
+  port: 8080
+
+test:
+  msg: 'Hello World!'

@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: petclinic-rest-backend
+
+  main:
+    allow-bean-definition-overriding: true
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      connection-init-sql: SELECT 1
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate.hbm2ddl.auto: none
+      hibernate.format_sql: false
+      hibernate.id.new_generator_mappings: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.temp.use_jdbc_metadata_defaults: false
+
+application:
+  swagger:
+    v1:
+      title: Petclinic
+      description: REST API Petclinic
+      version: 1.0
+      groupName: petclinic-api-1.0
+      defaultIncludePattern: /api/v1/.*

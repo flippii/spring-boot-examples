@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:32768/petclinic
+    password: postgres
+    username: postgres
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.hbm2ddl.auto: validate
+      hibernate.format_sql: true
+      hibernate.generate_statistics: false
+
+application:

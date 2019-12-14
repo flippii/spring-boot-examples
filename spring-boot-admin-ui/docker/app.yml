@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    image: kgent/spring-boot-admin-ui-backend:0.0.1-SNAPSHOT
+    container_name: 'admin-ui-backend'
+    ports:
+      - 8081:8081
+
+  server:
+    image: kgent/spring-boot-admin-ui-server:0.0.1-SNAPSHOT
+      container_name: 'admin-ui-server'
+      ports:
+        - 8082:8082
+      depends_on:
+        - mail
+
+  mail:
+    image: adampresley/mailslurper
+    container_name: 'mailslurper'
+    ports:
+      - 8080:8080
+      - 8085:8085
+      - 2500:2500
