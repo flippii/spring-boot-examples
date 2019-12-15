@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApplicationProfiles {
 
+    public static final String PRODUCTION = "prod";
     public static final String DEVELOPMENT = "dev";
 
 }

@@ -3,7 +3,7 @@ version: '2'
 services:
   app:
     image: kgent/spring-boot-monitoring-consul-backend:0.0.1-SNAPSHOT
-    container_name: 'monitoring-example'
+    container_name: 'petclinic-rest-backend'
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod

@@ -6,17 +6,20 @@ spring:
           - dev
 
   datasource:
-    url: jdbc:postgresql://localhost:32768/petclinic
-    password: postgres
-    username: postgres
+    url: jdbc:postgresql://localhost:5432/petclinic
+    username: petclinic
+    password:
 
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
     properties:
-      hibernate.hbm2ddl.auto: validate
+      hibernate.hbm2ddl.auto: create-drop
       hibernate.format_sql: true
-      hibernate.generate_statistics: false
+      hibernate.generate_statistics: true
+
+  flyway:
+    enabled: false
 
 application:
