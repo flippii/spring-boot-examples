@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -31,32 +32,32 @@ public class VetRestController {
     public VetDto getVet(@PathVariable("vetId") long vetId) {
         log.debug("REST request to get Vet: {}.", vetId);
         return vetService.getVet(vetId)
-                .orElseThrow(() -> new BadRequestException("idexists"));
+                .orElseThrow(() -> new BadRequestException("entity.vet.idnotexists", List.of(vetId)));
     }
 
     @PostMapping
-    public ResponseEntity<VetDto> createVet(@RequestBody @Valid VetDto vetDTO, UriComponentsBuilder uriBuilder) {
-        log.debug("REST request to save Vet: {}.", vetDTO);
+    public ResponseEntity<VetDto> createVet(@RequestBody @Valid VetDto vetDto, UriComponentsBuilder uriBuilder) {
+        log.debug("REST request to save Vet: {}.", vetDto);
 
-        if (vetDTO.getId() != null) {
-            throw new BadRequestException("idexists");
+        if (vetDto.getId() != null) {
+            throw new BadRequestException("entity.vet.idexists", List.of(vetDto.getId()));
         }
 
-        VetDto result = vetService.saveVet(vetDTO);
+        VetDto result = vetService.saveVet(vetDto);
 
-        return ResponseEntity.created(uriBuilder.path("/api/v1/vets/{id}").buildAndExpand(vetDTO.getId()).toUri())
+        return ResponseEntity.created(uriBuilder.path("/api/v1/vets/{id}").buildAndExpand(vetDto.getId()).toUri())
                 .body(result);
     }
 
     @PutMapping
-    public ResponseEntity<VetDto> updateVet(@RequestBody @Valid VetDto vetDTO, UriComponentsBuilder uriBuilder) {
-        log.debug("REST request to update Vet: {}.", vetDTO);
+    public ResponseEntity<VetDto> updateVet(@RequestBody @Valid VetDto vetDto, UriComponentsBuilder uriBuilder) {
+        log.debug("REST request to update Vet: {}.", vetDto);
 
-        if (vetDTO.getId() == null) {
-            return createVet(vetDTO, uriBuilder);
+        if (vetDto.getId() == null) {
+            return createVet(vetDto, uriBuilder);
         }
 
-        VetDto result = vetService.saveVet(vetDTO);
+        VetDto result = vetService.saveVet(vetDto);
 
         return ResponseEntity.ok(result);
     }

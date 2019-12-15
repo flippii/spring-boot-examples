@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -31,7 +32,7 @@ public class OwnerRestController {
     public OwnerDto getOwner(@PathVariable("ownerId") long ownerId) {
         log.debug("REST request to get Owner: {}.", ownerId);
         return ownerService.getOwner(ownerId)
-                .orElseThrow(() -> new BadRequestException("idexists"));
+                .orElseThrow(() -> new BadRequestException("entity.owner.idnotexists", List.of(ownerId)));
     }
 
     @PostMapping
@@ -39,7 +40,7 @@ public class OwnerRestController {
         log.debug("REST request to save Owner: {}.", ownerDto);
 
         if (ownerDto.getId() != null) {
-            throw new BadRequestException("idexists");
+            throw new BadRequestException("entity.owner.idexists", List.of(ownerDto.getId()));
         }
 
         OwnerDto result = ownerService.saveOwner(ownerDto);

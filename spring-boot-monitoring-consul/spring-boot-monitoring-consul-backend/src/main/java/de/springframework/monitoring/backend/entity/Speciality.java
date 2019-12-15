@@ -20,4 +20,5 @@ public class Speciality extends BaseEntity<Long> {
     public Speciality(String name) {
         this.name = name;
     }
+
 }

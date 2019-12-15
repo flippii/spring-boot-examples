@@ -1,9 +1,10 @@
 package de.springframework.monitoring.backend.service.dto;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class VetDto {
 

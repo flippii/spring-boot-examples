@@ -3,12 +3,12 @@ spring:
     consul:
       discovery:
         tags:
-          - dev
+          - prod
 
   datasource:
     url: jdbc:postgresql://localhost:32768/petclinic
-    password: postgres
-    username: postgres
+    username: petclinic
+    password:
 
   jpa:
     show-sql: false

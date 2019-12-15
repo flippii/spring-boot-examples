@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  app-postgresql:
+    image: postgres:12.1
+    container_name: 'postgres'
+    environment:
+      - POSTGRES_USER=petclinic
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432

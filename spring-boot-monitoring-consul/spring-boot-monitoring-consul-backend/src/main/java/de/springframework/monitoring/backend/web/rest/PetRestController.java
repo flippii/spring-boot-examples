@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -31,7 +32,7 @@ public class PetRestController {
     public PetDto getPet(@PathVariable("petId") long petId) {
         log.debug("REST request to get Pet: {}.", petId);
         return petService.getPet(petId)
-                .orElseThrow(() -> new BadRequestException("idexists"));
+                .orElseThrow(() -> new BadRequestException("entity.pet.idnotexists", List.of(petId)));
     }
 
     @PostMapping
@@ -39,7 +40,7 @@ public class PetRestController {
         log.debug("REST request to save Pet: {}.", petDto);
 
         if (petDto.getId() != null) {
-            throw new BadRequestException("idexists");
+            throw new BadRequestException("entity.pet.idexists", List.of(petDto.getId()));
         }
 
         PetDto result = petService.savePet(petDto);

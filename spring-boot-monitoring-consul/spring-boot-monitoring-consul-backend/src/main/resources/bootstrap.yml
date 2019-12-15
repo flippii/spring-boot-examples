@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: petclinic-rest-backend
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: true
+        format: yaml
+        profile-separator: "-"
+        fail-fast: true

@@ -1,9 +1,36 @@
-spring:
-  application:
-    name: petclinic-rest-backend
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
+info:
+  app:
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+    encoding: @project.build.sourceEncoding@
+    java:
+      version: @java.version@
+
+spring:
   main:
     allow-bean-definition-overriding: true
+
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        healthCheckTimeout: 60s
+        health-check-critical-timeout: 5m
+        prefer-ip-address: true
 
   jackson:
     deserialization:
@@ -12,6 +39,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     hikari:
+      poolName: Hikari
       minimum-idle: 1
       maximum-pool-size: 5
       connection-init-sql: SELECT 1
@@ -33,6 +61,11 @@ spring:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       hibernate.temp.use_jdbc_metadata_defaults: false
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
 
 application:
   swagger:

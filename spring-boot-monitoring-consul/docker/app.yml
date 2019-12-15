@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  app:
+    image: kgent/spring-boot-monitoring-consul-backend:0.0.1-SNAPSHOT
+    container_name: 'monitoring-example'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petclinic
+    ports:
+      - 8080:8080
+    depends_on:
+      - consul
+      - postgresql
+
+  consul:
+    extends:
+      file: ./consul.yml
+      service: app-consul
+
+  postgresql:
+    extends:
+      file: ./postgresql.yml
+      service: app-postgresql
+
+  prometheus:
+    extends:
+      file: ./monitoring.yml
+      service: app-prometheus
+
+  grafana:
+    extends:
+      file: ./monitoring.yml
+      service: app-grafana
+    depends_on:
+      - prometheus

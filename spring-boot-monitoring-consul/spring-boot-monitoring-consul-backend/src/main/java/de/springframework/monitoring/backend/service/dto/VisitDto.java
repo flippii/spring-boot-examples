@@ -1,11 +1,12 @@
 package de.springframework.monitoring.backend.service.dto;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class VisitDto {
 
