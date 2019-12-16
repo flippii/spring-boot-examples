@@ -21,6 +21,11 @@ services:
       file: consul.yml
       service: consul
 
+  app-consul-config-loader:
+    extends:
+      file: consul.yml
+      service: consul-config-loader
+
   app-postgresql:
     extends:
       file: postgresql.yml

@@ -3,11 +3,13 @@ package de.springframework.monitoring.backend.configuration;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.cors.CorsConfiguration;
 
 import javax.validation.constraints.NotEmpty;
 
+@RefreshScope
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
 

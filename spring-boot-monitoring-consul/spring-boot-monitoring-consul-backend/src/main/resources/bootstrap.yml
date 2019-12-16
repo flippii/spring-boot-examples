@@ -8,6 +8,7 @@ spring:
       port: 8500
       config:
         enabled: true
-        format: yaml
+        format: files
         profile-separator: "-"
         fail-fast: true
+        prefix: config/${spring.application.name}

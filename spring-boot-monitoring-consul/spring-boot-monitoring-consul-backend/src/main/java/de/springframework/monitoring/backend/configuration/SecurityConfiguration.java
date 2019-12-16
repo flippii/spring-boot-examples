@@ -55,6 +55,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .httpBasic();
     }
 
-    //Config in Consul - use Git - https://github.com/jhipster/consul-config-loader
-
 }
