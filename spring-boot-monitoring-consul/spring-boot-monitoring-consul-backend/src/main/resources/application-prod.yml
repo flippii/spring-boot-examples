@@ -1,3 +1,8 @@
+logging:
+  level:
+    ROOT: INFO
+    de.springframework.monitoring.backend: INFO
+
 spring:
   cloud:
     consul:
@@ -13,5 +18,8 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 5
       connection-init-sql: SELECT 1
+
+server:
+  port: 8080
 
 application:

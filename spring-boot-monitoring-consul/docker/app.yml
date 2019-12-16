@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  app:
+  app-backend:
     image: kgent/spring-boot-monitoring-consul-backend:0.0.1-SNAPSHOT
     container_name: 'petclinic-rest-backend'
     environment:
@@ -13,27 +13,27 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - consul
-      - postgresql
+      - app-consul
+      - app-postgresql
 
-  consul:
+  app-consul:
     extends:
-      file: ./consul.yml
-      service: app-consul
+      file: consul.yml
+      service: consul
 
-  postgresql:
+  app-postgresql:
     extends:
-      file: ./postgresql.yml
-      service: app-postgresql
+      file: postgresql.yml
+      service: postgresql
 
-  prometheus:
+  app-prometheus:
     extends:
-      file: ./monitoring.yml
-      service: app-prometheus
+      file: monitoring.yml
+      service: prometheus
 
-  grafana:
+  app-grafana:
     extends:
-      file: ./monitoring.yml
-      service: app-grafana
+      file: monitoring.yml
+      service: grafana
     depends_on:
-      - prometheus
+      - app-prometheus

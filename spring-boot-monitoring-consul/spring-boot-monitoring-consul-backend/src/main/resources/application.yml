@@ -39,7 +39,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     hikari:
-      poolName: Hikari
+      poolName: Hikari-Master
 
   jpa:
     database: POSTGRESQL
@@ -63,6 +63,11 @@ spring:
       hibernate.order_updates: true
       hibernate.query.fail_on_pagination_over_collection_fetch: true
       hibernate.query.in_clause_parameter_padding: true
+  security:
+    user:
+      name: actuator
+      password: actuator
+      roles: ACTUATOR_ADMIN
 
 application:
   swagger:

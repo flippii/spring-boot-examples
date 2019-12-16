@@ -27,7 +27,6 @@
         <module>spring-boot-monitoring</module>
         <module>spring-boot-consul</module>
         <module>spring-boot-monitoring-consul</module>
-        <module>spring-boot-performance-jmeter</module>
     </modules>
 
     <dependencyManagement>
