@@ -12,7 +12,7 @@ import javax.validation.constraints.Digits;
 @AllArgsConstructor
 @Builder
 @Document(collection = "owners")
-public class Owner extends BaseDocument<Long> {
+public class Owner extends BaseDocument {
 
     @NonNull
     @Field("first_name")

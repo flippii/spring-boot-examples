@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Document(collection = "pets")
-public class Pet extends BaseDocument<Long> {
+public class Pet extends BaseDocument {
 
     @NotNull
     @Field("name")

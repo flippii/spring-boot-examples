@@ -3,13 +3,14 @@ package de.springframework.keycloak.customers.document;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
-abstract class BaseDocument<PK extends Serializable> implements Serializable {
+abstract class BaseDocument {
 
     @Id
-    private PK id;
+    private BigInteger id;
 
-    public PK getId() {
+    public BigInteger getId() {
         return id;
     }
 
@@ -19,13 +20,13 @@ abstract class BaseDocument<PK extends Serializable> implements Serializable {
             return true;
         }
 
-        if (this.id == null || obj == null || !(this.getClass().equals(obj.getClass()))) {
+        if (id == null || obj == null || !(getClass().equals(obj.getClass()))) {
             return false;
         }
 
-        BaseDocument<?> that = (BaseDocument<?>) obj;
+        BaseDocument that = (BaseDocument) obj;
 
-        return this.id.equals(that.getId());
+        return id.equals(that.getId());
     }
 
     @Override

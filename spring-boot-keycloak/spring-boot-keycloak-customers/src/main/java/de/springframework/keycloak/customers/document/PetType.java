@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @Document(collection = "pet_types")
-public class PetType extends BaseDocument<Long> {
+public class PetType extends BaseDocument {
 
     @NotNull
     @Field("name")
