@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import java.math.BigInteger;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +21,7 @@ public class VetDto {
 
     @NotEmpty
     private String lastName;
+
+    private Set<SpecialityDto> specialties;
 
 }

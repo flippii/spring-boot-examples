@@ -5,6 +5,8 @@ import de.springframework.keycloak.vets.document.Vet;
 import de.springframework.keycloak.vets.service.dto.VetDto;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {
+        SpecialityMapper.class
+})
 public interface VetMapper extends EntityMapper<VetDto, Vet> {
 }

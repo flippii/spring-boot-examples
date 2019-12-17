@@ -1,0 +1,47 @@
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    org.springframework.data.mongodb.repository.Query: DEBUG
+
+info:
+  app:
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+    encoding: @project.build.sourceEncoding@
+    java:
+      version: @java.version@
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      #uri: mongodb://root:example@localhost:27017
+      database: petclinic-visits
+
+application:
+  swagger:
+    v1:
+      title: Petclinic Visits
+      description: REST API Petclinic Visits
+      version: 1.0
+      groupName: visists-api-1.0
+      defaultIncludePattern: /api/v1/.*
