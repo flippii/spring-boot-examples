@@ -1,4 +1,4 @@
-package de.springframework.keycloak.customers.configuration;
+package de.springframework.keycloak.vets.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
     private final ApplicationProperties applicationProperties;
 
     @Bean
-    public Docket customersApi10() {
+    public Docket vetsApi10() {
         ApplicationProperties.Swagger.Version version = applicationProperties.getSwagger().getV1();
 
         return new Docket(SWAGGER_2)
