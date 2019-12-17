@@ -33,14 +33,15 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://root:example@localhost:27017
+      uri: mongodb://localhost:27017
+      #uri: mongodb://root:example@localhost:27017
       database: petclinic-customers
 
 application:
   swagger:
     v1:
-      title: Petclinic
-      description: REST API Petclinic
+      title: Petclinic Customer
+      description: REST API Petclinic Customer
       version: 1.0
-      groupName: petclinic-api-1.0
+      groupName: customer-api-1.0
       defaultIncludePattern: /api/v1/.*

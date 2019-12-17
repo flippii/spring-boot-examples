@@ -1,11 +1,10 @@
 package de.springframework.keycloak.customers.document;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Document(collection = "pet_types")
 public class PetType extends BaseDocument {
 
-    @NotNull
+    @NotEmpty
     @Field("name")
     private String name;
 

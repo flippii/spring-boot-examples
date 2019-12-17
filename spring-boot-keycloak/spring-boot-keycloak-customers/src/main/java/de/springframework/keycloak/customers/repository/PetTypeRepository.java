@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PetTypeRepository extends MongoRepository<PetType, Long> {
+public interface PetTypeRepository extends MongoRepository<PetType, String> {
 
     Optional<PetType> findByName(String name);
 

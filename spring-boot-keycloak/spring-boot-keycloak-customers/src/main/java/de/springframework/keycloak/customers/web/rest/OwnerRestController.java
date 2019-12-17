@@ -8,10 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +31,7 @@ public class OwnerRestController {
     }
 
     @GetMapping("/{ownerId}")
-    public OwnerDto getOwner(@PathVariable("ownerId") long ownerId) {
+    public OwnerDto getOwner(@PathVariable("ownerId") @Valid @NotNull String ownerId) {
         log.debug("REST request to get Owner: {}.", ownerId);
         return ownerService.getOwner(ownerId)
                 .orElseThrow(() -> new BadRequestException("entity.owner.idnotexists", List.of(ownerId)));
@@ -39,7 +41,7 @@ public class OwnerRestController {
     public ResponseEntity<OwnerDto> createOwner(@RequestBody @Valid OwnerDto ownerDto, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to save Owner: {}.", ownerDto);
 
-        if (ownerDto.getId() != null) {
+        if (StringUtils.isEmpty(ownerDto.getId())) {
             throw new BadRequestException("entity.owner.idexists", List.of(ownerDto.getId()));
         }
 
@@ -53,7 +55,7 @@ public class OwnerRestController {
     public ResponseEntity<OwnerDto> updateOwner(@RequestBody @Valid OwnerDto ownerDto, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to update Owner: {}.", ownerDto);
 
-        if (ownerDto.getId() == null) {
+        if (StringUtils.isEmpty(ownerDto.getId())) {
             return createOwner(ownerDto, uriBuilder);
         }
 
@@ -63,7 +65,7 @@ public class OwnerRestController {
     }
 
     @DeleteMapping("/{ownerId}")
-    public ResponseEntity<Void> deleteOwner(@PathVariable("ownerId") long ownerId) {
+    public ResponseEntity<Void> deleteOwner(@PathVariable("ownerId") @Valid @NotNull String ownerId) {
         log.debug("REST request to delete Owner: {}.", ownerId);
 
         ownerService.deleteOwner(ownerId);

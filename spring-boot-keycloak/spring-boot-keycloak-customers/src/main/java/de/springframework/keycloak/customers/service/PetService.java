@@ -28,7 +28,7 @@ public class PetService {
                 .map(petMapper::toDto);
     }
 
-    public Optional<PetDto> getPet(long petId) {
+    public Optional<PetDto> getPet(String petId) {
         log.debug("Request to get Pet: {}.", petId);
         return petRepository.findById(petId)
                 .map(petMapper::toDto);
@@ -43,7 +43,7 @@ public class PetService {
     }
 
     @Transactional
-    public void deletePet(long petId) {
+    public void deletePet(String petId) {
         log.debug("Request to delete Pet: {}.", petId);
         petRepository.deleteById(petId);
     }

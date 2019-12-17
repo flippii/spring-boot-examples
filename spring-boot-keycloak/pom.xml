@@ -21,6 +21,20 @@
         <module>spring-boot-keycloak-visits</module>
     </modules>
 
+    <properties>
+        <mongock.version>3.0.5.BETA</mongock.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.cloudyrock.mongock</groupId>
+                <artifactId>mongock-spring</artifactId>
+                <version>${mongock.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>

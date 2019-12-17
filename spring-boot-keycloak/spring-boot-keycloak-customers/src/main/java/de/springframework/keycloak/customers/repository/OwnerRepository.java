@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface OwnerRepository extends MongoRepository<Owner, Long> {
+public interface OwnerRepository extends MongoRepository<Owner, String> {
 
     Optional<Owner> findByFirstNameAndLastName(String firstName, String lastName);
 

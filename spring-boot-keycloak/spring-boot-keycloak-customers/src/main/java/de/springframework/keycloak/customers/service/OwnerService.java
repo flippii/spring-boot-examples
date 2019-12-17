@@ -28,7 +28,7 @@ public class OwnerService {
                 .map(ownerMapper::toDto);
     }
 
-    public Optional<OwnerDto> getOwner(long ownerId) {
+    public Optional<OwnerDto> getOwner(String ownerId) {
         log.debug("Request to get Owner: {}.", ownerId);
         return ownerRepository.findById(ownerId)
                 .map(ownerMapper::toDto);
@@ -43,7 +43,7 @@ public class OwnerService {
     }
 
     @Transactional
-    public void deleteOwner(long ownerId) {
+    public void deleteOwner(String ownerId) {
         log.debug("Request to delete Owner: {}.", ownerId);
         ownerRepository.deleteById(ownerId);
     }

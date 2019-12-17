@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -14,23 +15,23 @@ import javax.validation.constraints.Digits;
 @Document(collection = "owners")
 public class Owner extends BaseDocument {
 
-    @NonNull
+    @NotEmpty
     @Field("first_name")
     private String firstName;
 
-    @NonNull
+    @NotEmpty
     @Field("last_name")
     private String lastName;
 
-    @NonNull
+    @NotEmpty
     @Field("address")
     private String address;
 
-    @NonNull
+    @NotEmpty
     @Field("city")
     private String city;
 
-    @NonNull
+    @NotEmpty
     @Digits(fraction = 0, integer = 10)
     @Field("telephone")
     private String telephone;

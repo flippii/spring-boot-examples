@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Data
@@ -13,9 +14,14 @@ import java.time.LocalDate;
 @Builder
 public class PetDto {
 
-    private Long id;
+    private String id;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private LocalDate birthDate;
+
     private PetTypeDto type;
     private OwnerDto owner;
 

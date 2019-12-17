@@ -1,18 +1,15 @@
 package de.springframework.keycloak.customers.document;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-import java.io.Serializable;
-import java.math.BigInteger;
-
-abstract class BaseDocument {
+@Getter
+@Setter
+public abstract class BaseDocument {
 
     @Id
-    private BigInteger id;
-
-    public BigInteger getId() {
-        return id;
-    }
+    private String id;
 
     @Override
     public boolean equals(Object obj) {
