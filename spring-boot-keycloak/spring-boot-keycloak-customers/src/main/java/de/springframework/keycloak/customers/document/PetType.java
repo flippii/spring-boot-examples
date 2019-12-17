@@ -1,5 +1,6 @@
 package de.springframework.keycloak.customers.document;
 
+import de.springframework.keycloak.core.document.BaseDocument;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;

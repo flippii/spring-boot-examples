@@ -1,15 +1,13 @@
-package de.springframework.keycloak.customers.service;
+package de.springframework.keycloak.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-@Service
 @RequiredArgsConstructor
-public class MessageService {
+public class DefaultMessageService implements MessageService {
 
     private final MessageSource messageSource;
 
@@ -32,7 +30,5 @@ public class MessageService {
     private Locale getLocale() {
         return LocaleContextHolder.getLocale();
     }
-
-
 
 }

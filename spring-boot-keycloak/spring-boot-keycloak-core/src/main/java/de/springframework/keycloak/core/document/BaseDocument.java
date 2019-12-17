@@ -1,4 +1,4 @@
-package de.springframework.keycloak.customers.document;
+package de.springframework.keycloak.core.document;
 
 import lombok.Getter;
 import lombok.Setter;

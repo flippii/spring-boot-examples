@@ -1,4 +1,4 @@
-package de.springframework.keycloak.customers.data;
+package de.springframework.keycloak.core.data;
 
 public class DataInitializationException extends RuntimeException {
 

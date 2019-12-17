@@ -1,4 +1,4 @@
-package de.springframework.keycloak.customers.service.mapper;
+package de.springframework.keycloak.core.service.mapper;
 
 public interface EntityMapper<D, E> {
 

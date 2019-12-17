@@ -1,9 +1,8 @@
-package de.springframework.keycloak.customers.data;
+package de.springframework.keycloak.core.data;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -15,14 +14,6 @@ public class DataInitializerInvoker implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         initializers.forEach(DataInitializer::initialize);
-    }
-
-    @Component
-    static class NoOpDataInitializer implements DataInitializer {
-
-        @Override
-        public void initialize() {}
-
     }
 
 }

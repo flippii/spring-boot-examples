@@ -1,5 +1,7 @@
 package de.springframework.keycloak.customers.data;
 
+import de.springframework.keycloak.core.data.DataInitializationException;
+import de.springframework.keycloak.core.data.DataInitializer;
 import de.springframework.keycloak.customers.document.Owner;
 import de.springframework.keycloak.customers.document.Pet;
 import de.springframework.keycloak.customers.document.PetType;

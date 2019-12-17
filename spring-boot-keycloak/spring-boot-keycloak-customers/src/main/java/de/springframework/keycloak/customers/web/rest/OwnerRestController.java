@@ -1,8 +1,8 @@
 package de.springframework.keycloak.customers.web.rest;
 
+import de.springframework.keycloak.core.exception.BadRequestException;
 import de.springframework.keycloak.customers.service.OwnerService;
 import de.springframework.keycloak.customers.service.dto.OwnerDto;
-import de.springframework.keycloak.customers.web.rest.errors.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

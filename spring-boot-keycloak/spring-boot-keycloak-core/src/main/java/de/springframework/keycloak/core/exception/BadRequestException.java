@@ -1,4 +1,4 @@
-package de.springframework.keycloak.customers.web.rest.errors;
+package de.springframework.keycloak.core.exception;
 
 import lombok.Getter;
 import org.zalando.problem.AbstractThrowableProblem;

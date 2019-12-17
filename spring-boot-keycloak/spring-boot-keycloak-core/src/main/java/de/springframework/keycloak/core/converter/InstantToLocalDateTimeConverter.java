@@ -1,4 +1,4 @@
-package de.springframework.keycloak.customers.converter;
+package de.springframework.keycloak.core.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;

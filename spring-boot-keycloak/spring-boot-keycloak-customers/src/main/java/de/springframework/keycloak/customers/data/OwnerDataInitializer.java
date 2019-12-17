@@ -1,5 +1,6 @@
 package de.springframework.keycloak.customers.data;
 
+import de.springframework.keycloak.core.data.DataInitializer;
 import de.springframework.keycloak.customers.document.Owner;
 import de.springframework.keycloak.customers.repository.OwnerRepository;
 import lombok.RequiredArgsConstructor;

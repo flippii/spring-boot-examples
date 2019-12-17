@@ -1,5 +1,6 @@
 package de.springframework.keycloak.customers.service.mapper;
 
+import de.springframework.keycloak.core.service.mapper.EntityMapper;
 import de.springframework.keycloak.customers.document.Pet;
 import de.springframework.keycloak.customers.service.dto.PetDto;
 import org.mapstruct.Mapper;
