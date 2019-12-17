@@ -27,21 +27,12 @@ public class VisitRestController {
 
     @GetMapping
     public Page<VisitDto> getVisits(@PathVariable("petId") String petId, Pageable pageable) {
-        log.debug("REST request to get all Visits from pet: {}.", petId);
+        log.debug("REST request to get all Visits from Pet: {}.", petId);
         return visitService.getVisits(petId, pageable);
     }
 
-    @GetMapping("/{visitId}")
-    public VisitDto getVisit(@PathVariable("petId") String petId, @PathVariable("visitId") String visitId) {
-        log.debug("REST request to get Visit: {}.", visitId);
-        return visitService.getVisit(petId, visitId)
-                .orElseThrow(() -> new BadRequestException("entity.visit.idnotexists", List.of(visitId)));
-    }
-
     @PostMapping
-    public ResponseEntity<VisitDto> createVisit(@PathVariable("petId") String petId, @RequestBody @Valid VisitDto visitDto,
-                                                UriComponentsBuilder uriBuilder) {
-
+    public ResponseEntity<VisitDto> createVisit(@RequestBody @Valid VisitDto visitDto, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to save Visit: {}.", visitDto);
 
         if (StringUtils.isEmpty(visitDto.getId())) {
@@ -50,33 +41,30 @@ public class VisitRestController {
 
         VisitDto result = visitService.saveVisit(visitDto);
 
-        return ResponseEntity.created(uriBuilder.path("/api/v1/visits/{id}").buildAndExpand(visitDto.getId()).toUri())
+        return ResponseEntity.created(uriBuilder.path("/api/v1/pets/{petId}/{id}").buildAndExpand(visitDto.getPetId(), visitDto.getId()).toUri())
                 .body(result);
     }
 
     @PutMapping
-    public ResponseEntity<VisitDto> updateVet(@PathVariable("petId") String petId, @RequestBody @Valid VisitDto visitDto,
-                                              UriComponentsBuilder uriBuilder) {
-
+    public ResponseEntity<VisitDto> updateVisit(@RequestBody @Valid VisitDto visitDto, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to update Visit: {}.", visitDto);
 
         if (StringUtils.isEmpty(visitDto.getId())) {
-            return createVisit(petId, visitDto, uriBuilder);
+            return createVisit(visitDto, uriBuilder);
         }
 
-        VisitDto result = visitService.saveVisit(visitDto);
+        VisitDto result = visitService.saveVisit( visitDto);
 
         return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{visitId}")
-    public ResponseEntity<Void> deletePet(@PathVariable("petId") String petId, @PathVariable("visitId") String visitId) {
-        log.debug("REST request to delete Visit: {}.", visitId);
+    public ResponseEntity<Void> deleteVisit(@PathVariable("petId") String petId, @PathVariable("visitId") String visitId) {
+        log.debug("REST request to delete Visit: {} from Pet: {}.", visitId, petId);
 
-        visitService.deleteVisit(visitId);
+        visitService.deleteVisit(petId, visitId);
 
-        return ResponseEntity.ok()
-                .build();
+        return ResponseEntity.ok().build();
     }
 
 }

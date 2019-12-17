@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,14 +21,8 @@ public class VisitService {
     private final VisitMapper visitMapper;
 
     public Page<VisitDto> getVisits(String petId, Pageable pageable) {
-        log.debug("Request to get all Visits.");
-        return visitRepository.findAll(pageable)
-                .map(visitMapper::toDto);
-    }
-
-    public Optional<VisitDto> getVisit(String petId, String visitId) {
-        log.debug("Request to get Visit: {}.", visitId);
-        return visitRepository.findById(visitId)
+        log.debug("Request to get all Visits for Pet: {}.", petId);
+        return visitRepository.findAllByPetId(petId, pageable)
                 .map(visitMapper::toDto);
     }
 
@@ -43,9 +35,9 @@ public class VisitService {
     }
 
     @Transactional
-    public void deleteVisit(String visitId) {
-        log.debug("Request to delete Visit: {}.", visitId);
-        visitRepository.deleteById(visitId);
+    public void deleteVisit(String petId, String visitId) {
+        log.debug("Request to delete Visit: {} for Pet: {}.", visitId, petId);
+        visitRepository.deleteByIdAndPetId(visitId, petId);
     }
 
 }
