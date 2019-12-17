@@ -22,13 +22,13 @@ public class VisitService {
     private final VisitRepository visitRepository;
     private final VisitMapper visitMapper;
 
-    public Page<VisitDto> getVisits(Pageable pageable) {
+    public Page<VisitDto> getVisits(String petId, Pageable pageable) {
         log.debug("Request to get all Visits.");
         return visitRepository.findAll(pageable)
                 .map(visitMapper::toDto);
     }
 
-    public Optional<VisitDto> getVisit(String visitId) {
+    public Optional<VisitDto> getVisit(String petId, String visitId) {
         log.debug("Request to get Visit: {}.", visitId);
         return visitRepository.findById(visitId)
                 .map(visitMapper::toDto);

@@ -3,6 +3,7 @@ package de.springframework.keycloak.vets.web.rest;
 import de.springframework.keycloak.core.exception.BadRequestException;
 import de.springframework.keycloak.vets.service.VetService;
 import de.springframework.keycloak.vets.service.dto.VetDto;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/vets")
 @RequiredArgsConstructor
+@Timed("petclinic.vets")
 public class VetRestController {
 
     private final VetService vetService;

@@ -14,7 +14,7 @@ interface BadRequestAdviceTrait extends I18nAdviceTrait {
     default ResponseEntity<Problem> handleBadRequestException(BadRequestException ex, NativeWebRequest request) {
         Problem problem = Problem.builder()
                 .withStatus(ex.getStatus())
-                .with(MESSAGE_KEY, translate(ex.getMessage()))
+                .with(MESSAGE_KEY, translate(ex.getMessage(), ex.getArgs()))
                 .build();
 
         return create(ex, problem, request);

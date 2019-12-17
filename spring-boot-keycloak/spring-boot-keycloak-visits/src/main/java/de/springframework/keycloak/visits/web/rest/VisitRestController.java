@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/visits")
+@RequestMapping("api/v1/pets/{petId}/visits")
 @RequiredArgsConstructor
 @Timed("petclinic.visit")
 public class VisitRestController {
@@ -27,20 +26,22 @@ public class VisitRestController {
     private final VisitService visitService;
 
     @GetMapping
-    public Page<VisitDto> getVets(Pageable pageable) {
-        log.debug("REST request to get all Visits.");
-        return visitService.getVisits(pageable);
+    public Page<VisitDto> getVisits(@PathVariable("petId") String petId, Pageable pageable) {
+        log.debug("REST request to get all Visits from pet: {}.", petId);
+        return visitService.getVisits(petId, pageable);
     }
 
     @GetMapping("/{visitId}")
-    public VisitDto getVet(@PathVariable("visitId") @Valid @NotNull String visitId) {
+    public VisitDto getVisit(@PathVariable("petId") String petId, @PathVariable("visitId") String visitId) {
         log.debug("REST request to get Visit: {}.", visitId);
-        return visitService.getVisit(visitId)
+        return visitService.getVisit(petId, visitId)
                 .orElseThrow(() -> new BadRequestException("entity.visit.idnotexists", List.of(visitId)));
     }
 
     @PostMapping
-    public ResponseEntity<VisitDto> createVisit(@RequestBody @Valid VisitDto visitDto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<VisitDto> createVisit(@PathVariable("petId") String petId, @RequestBody @Valid VisitDto visitDto,
+                                                UriComponentsBuilder uriBuilder) {
+
         log.debug("REST request to save Visit: {}.", visitDto);
 
         if (StringUtils.isEmpty(visitDto.getId())) {
@@ -54,11 +55,13 @@ public class VisitRestController {
     }
 
     @PutMapping
-    public ResponseEntity<VisitDto> updateVet(@RequestBody @Valid VisitDto visitDto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<VisitDto> updateVet(@PathVariable("petId") String petId, @RequestBody @Valid VisitDto visitDto,
+                                              UriComponentsBuilder uriBuilder) {
+
         log.debug("REST request to update Visit: {}.", visitDto);
 
         if (StringUtils.isEmpty(visitDto.getId())) {
-            return createVisit(visitDto, uriBuilder);
+            return createVisit(petId, visitDto, uriBuilder);
         }
 
         VisitDto result = visitService.saveVisit(visitDto);
@@ -67,7 +70,7 @@ public class VisitRestController {
     }
 
     @DeleteMapping("/{visitId}")
-    public ResponseEntity<Void> deletePet(@PathVariable("visitId") @Valid @NotNull String visitId) {
+    public ResponseEntity<Void> deletePet(@PathVariable("petId") String petId, @PathVariable("visitId") String visitId) {
         log.debug("REST request to delete Visit: {}.", visitId);
 
         visitService.deleteVisit(visitId);

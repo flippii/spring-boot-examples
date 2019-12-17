@@ -16,4 +16,10 @@ public class ExceptionTranslatorAdvice implements I18nProblemHandling {
         return messageService.getMessage(messageId);
     }
 
+    @Override
+    public String translate(String messageId, Object[] args) {
+        return messageService.getMessage(messageId, args);
+    }
+
+
 }

@@ -53,4 +53,6 @@ interface I18nAdviceTrait extends AdviceTrait {
 
     String translate(String messageId);
 
+    String translate(String messageId, Object[] args);
+
 }
