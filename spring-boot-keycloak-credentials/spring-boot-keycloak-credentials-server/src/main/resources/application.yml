@@ -1,0 +1,10 @@
+security:
+  oauth2:
+    client:
+      clientId: demo-service
+      clientSecret: 0177d4e9-a529-4031-9e0f-732035598496
+    resource:
+      tokenInfoUri: http://localhost:9080/auth/realms/client-credentials/protocol/openid-connect/token/introspect
+
+server:
+  port: 8080

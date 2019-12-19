@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Collections;
 
 @Slf4j
 @RestController
@@ -36,7 +36,7 @@ public class OwnerRestController {
     public OwnerDto getOwner(@PathVariable("ownerId") @Valid @NotNull String ownerId) {
         log.debug("REST request to get Owner: {}.", ownerId);
         return ownerService.getOwner(ownerId)
-                .orElseThrow(() -> new BadRequestException("entity.owner.idnotexists", List.of(ownerId)));
+                .orElseThrow(() -> new BadRequestException("entity.owner.idnotexists", Collections.singletonList(ownerId)));
     }
 
     @PostMapping
@@ -44,7 +44,7 @@ public class OwnerRestController {
         log.debug("REST request to save Owner: {}.", ownerDto);
 
         if (StringUtils.isEmpty(ownerDto.getId())) {
-            throw new BadRequestException("entity.owner.idexists", List.of(ownerDto.getId()));
+            throw new BadRequestException("entity.owner.idexists", Collections.singletonList(ownerDto.getId()));
         }
 
         OwnerDto result = ownerService.saveOwner(ownerDto);

@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Collections;
 
 @Slf4j
 @RestController
@@ -36,7 +36,7 @@ public class PetTypeRestController {
     public PetTypeDto getPetType(@PathVariable("petTypeId") @Valid @NotNull String petTypeId) {
         log.debug("REST request to get PetType: {}.", petTypeId);
         return petTypeService.getPetType(petTypeId)
-                .orElseThrow(() -> new BadRequestException("entity.petType.idnotexists", List.of(petTypeId)));
+                .orElseThrow(() -> new BadRequestException("entity.petType.idnotexists", Collections.singletonList(petTypeId)));
     }
 
     @PostMapping
@@ -44,7 +44,7 @@ public class PetTypeRestController {
         log.debug("REST request to save PetType: {}.", petTypeDto);
 
         if (StringUtils.isEmpty(petTypeDto.getId())) {
-            throw new BadRequestException("entity.petType.idexists", List.of(petTypeDto.getId()));
+            throw new BadRequestException("entity.petType.idexists", Collections.singletonList(petTypeDto.getId()));
         }
 
         PetTypeDto result = petTypeService.savePetType(petTypeDto);

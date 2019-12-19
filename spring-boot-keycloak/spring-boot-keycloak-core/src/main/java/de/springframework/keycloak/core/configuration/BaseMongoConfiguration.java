@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import java.util.List;
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 public abstract class BaseMongoConfiguration extends AbstractMongoConfiguration {
@@ -40,7 +40,7 @@ public abstract class BaseMongoConfiguration extends AbstractMongoConfiguration 
     @NonNull
     @Override
     public CustomConversions customConversions() {
-        return new MongoCustomConversions(List.of(
+        return new MongoCustomConversions(Arrays.asList(
                 new LocalDateTimeToInstantConverter(),
                 new InstantToLocalDateTimeConverter()
         ));

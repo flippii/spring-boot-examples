@@ -17,6 +17,18 @@ public class ApplicationProperties {
     @Getter
     private final CorsConfiguration cors = new CorsConfiguration();
 
+    @Getter
+    private final Security security = new Security();
+
+    @Data
+    @Validated
+    public static final class Security {
+
+        private boolean enabled;
+        private String apiMatcher;
+
+    }
+
     @Validated
     public static final class Swagger {
 

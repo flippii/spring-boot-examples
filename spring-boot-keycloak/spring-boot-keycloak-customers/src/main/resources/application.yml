@@ -11,8 +11,11 @@ management:
 
 logging:
   level:
+    org.springframework.security: DEBUG
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
     org.springframework.data.mongodb.repository.Query: DEBUG
+    de.springframework.keycloak.customers: DEBUG
+    root: INFO
 
 info:
   app:
@@ -37,6 +40,25 @@ spring:
       #uri: mongodb://root:example@localhost:27017
       database: petclinic-customers
 
+security:
+  oauth2:
+    resource:
+      id: employee-service
+      token-info-uri: http://localhost:9080/auth/realms/dev/protocol/openid-connect/token/introspect
+      user-info-uri: http://localhost:9080/auth/realms/dev/protocol/openid-connect/userinfo
+      jwt:
+        key-value: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhlXrUUR6+3AYidRsMIYab6HvDkUNQU0i0/tk/EOqxl0xtRH3QVJXeuD4PWB0DJ5iNmZdjUwqJ3bSjtD0yqiHOuczdVdIPHRtOWJGokV+jS0NSellCLdEALz6NfJ04JT9hhO5yL+83InMDbDwCqaPTcsfmWujPGZU6+SHFK/wHBAI4sAzv9H5Sde0/5Pl9VCnWKoyzxcXSeQtPeMiL+HYrNLGIWa+LCc95OWbnOJzn7aBo6jPmIXCa0zhlm4McULEO6frwnIZVNkbL1hZCLSP6witjxtMzfcdePcSC+/a1fTntaI7GKoUXmirHQDA1qMy/TuL7cCOMDGNLL3eT9i/mQIDAQAB\n-----END PUBLIC KEY-----"
+    client:
+      client-id: employee-service
+      client-secret: 362c27fe-f417-4744-a22b-e582bc7999eb
+      user-authorization-uri: http://localhost:9080/auth/realms/dev/protocol/openid-connect/auth
+      access-token-uri: http://localhost:9080/auth/realms/dev/protocol/openid-connect/token
+      scope: openid
+      grant-type: client_credentials
+
+server:
+  port: 8085
+
 application:
   swagger:
     v1:
@@ -45,3 +67,11 @@ application:
       version: 1.0
       groupName: customer-api-1.0
       defaultIncludePattern: /api/v1/.*
+  cors:
+    allowed-origins: "*"
+    allowed-headers: "*"
+    allowed-methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    max-age: 3600
+  security:
+    enabled: true
+    api-Matcher: "/api/**"

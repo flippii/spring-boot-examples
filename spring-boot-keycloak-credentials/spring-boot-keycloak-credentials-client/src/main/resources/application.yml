@@ -1,0 +1,12 @@
+example:
+    baseUrl: http://localhost:8080
+    oauth2:
+        client:
+            grant-type: client_credentials
+            clientId: demo-service
+            clientSecret: 0177d4e9-a529-4031-9e0f-732035598496
+            accessTokenUri: http://localhost:9080/auth/realms/client-credentials/protocol/openid-connect/token
+            scope: custom_mod
+
+server:
+    port: 8085
