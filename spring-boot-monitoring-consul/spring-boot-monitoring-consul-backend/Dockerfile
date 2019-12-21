@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk
+FROM openjdk:8-jre-alpine
 
 ARG JAR_FILE
 

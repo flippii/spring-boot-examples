@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Collections;
 
 @Slf4j
 @RestController
@@ -36,7 +36,7 @@ public class VisitRestController {
         log.debug("REST request to save Visit: {}.", visitDto);
 
         if (StringUtils.isEmpty(visitDto.getId())) {
-            throw new BadRequestException("entity.visit.idexists", List.of(visitDto.getId()));
+            throw new BadRequestException("entity.visit.idexists", Collections.singletonList(visitDto.getId()));
         }
 
         VisitDto result = visitService.saveVisit(visitDto);

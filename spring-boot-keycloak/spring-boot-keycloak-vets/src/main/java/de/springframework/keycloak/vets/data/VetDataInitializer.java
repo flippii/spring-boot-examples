@@ -10,7 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.Collections;
+import java.util.HashSet;
 
 @Slf4j
 @Order(1)
@@ -34,10 +35,13 @@ public class VetDataInitializer implements DataInitializer {
         Speciality dentistry = findOrSave("dentistry");
 
         save(new Vet("James", "Carter"));
-        save(new Vet("Helen", "Leary", Set.of(radiology)));
-        save(new Vet("Linda", "Douglas", Set.of(surgery, dentistry)));
-        save(new Vet("Rafael", "Ortega", Set.of(surgery)));
-        save(new Vet("Henry", "Stevens", Set.of(radiology)));
+        save(new Vet("Helen", "Leary", Collections.singleton(radiology)));
+        save(new Vet("Linda", "Douglas", new HashSet<Speciality>() {{
+            add(surgery);
+            add(dentistry);
+        }}));
+        save(new Vet("Rafael", "Ortega", Collections.singleton(surgery)));
+        save(new Vet("Henry", "Stevens", Collections.singleton(radiology)));
         save(new Vet("Sharon", "Jenkins"));
     }
 

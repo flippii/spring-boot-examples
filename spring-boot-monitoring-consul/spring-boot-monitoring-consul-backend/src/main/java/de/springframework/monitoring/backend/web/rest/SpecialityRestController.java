@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Collections;
 
 @Slf4j
 @RestController
@@ -32,7 +32,7 @@ public class SpecialityRestController {
     public SpecialityDto getSpeciality(@PathVariable("specialityId") long specialityId) {
         log.debug("REST request to get Speciality: {}.", specialityId);
         return specialityService.getSpeciality(specialityId)
-                .orElseThrow(() -> new BadRequestException("entity.speciality.idnotexists", List.of(specialityId)));
+                .orElseThrow(() -> new BadRequestException("entity.speciality.idnotexists", Collections.singletonList(specialityId)));
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class SpecialityRestController {
         log.debug("REST request to save Speciality: {}.", specialityDto);
 
         if (specialityDto.getId() != null) {
-            throw new BadRequestException("entity.speciality.idexists", List.of(specialityDto.getId()));
+            throw new BadRequestException("entity.speciality.idexists", Collections.singletonList(specialityDto.getId()));
         }
 
         SpecialityDto result = specialityService.saveSpeciality(specialityDto);

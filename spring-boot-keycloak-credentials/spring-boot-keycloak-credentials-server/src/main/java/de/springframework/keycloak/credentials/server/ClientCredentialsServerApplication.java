@@ -1,12 +1,14 @@
 package de.springframework.keycloak.credentials.server;
 
+import de.springframework.keycloak.credentials.server.configuration.ApplicationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-@EnableResourceServer
-@SpringBootApplication(exclude = { UserDetailsServiceAutoConfiguration.class })
+@EnableWebSecurity
+@SpringBootApplication
+@EnableConfigurationProperties({ ApplicationProperties.class })
 public class ClientCredentialsServerApplication {
 
     public static void main(String[] args) {

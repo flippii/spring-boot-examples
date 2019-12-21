@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Collections;
 
 @Slf4j
 @RestController
@@ -36,7 +36,7 @@ public class VetRestController {
     public VetDto getVet(@PathVariable("vetId") @Valid @NotNull String vetId) {
         log.debug("REST request to get Vet: {}.", vetId);
         return vetService.getVet(vetId)
-                .orElseThrow(() -> new BadRequestException("entity.vet.idnotexists", List.of(vetId)));
+                .orElseThrow(() -> new BadRequestException("entity.vet.idnotexists", Collections.singletonList(vetId)));
     }
 
     @PostMapping
@@ -44,7 +44,7 @@ public class VetRestController {
         log.debug("REST request to save Vet: {}.", vetDto);
 
         if (StringUtils.isEmpty(vetDto.getId())) {
-            throw new BadRequestException("entity.vet.idexists", List.of(vetDto.getId()));
+            throw new BadRequestException("entity.vet.idexists", Collections.singletonList(vetDto.getId()));
         }
 
         VetDto result = vetService.saveVet(vetDto);

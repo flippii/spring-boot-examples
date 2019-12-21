@@ -1,12 +1,32 @@
-example:
-    baseUrl: http://localhost:8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  application:
+    name: security-client
+  security:
     oauth2:
-        client:
-            grant-type: client_credentials
-            clientId: demo-service
-            clientSecret: 0177d4e9-a529-4031-9e0f-732035598496
-            accessTokenUri: http://localhost:9080/auth/realms/client-credentials/protocol/openid-connect/token
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:9080/auth/realms/client-credentials
+        registration:
+          keycloak:
+            client-id: demo-service
+            client-secret: 0177d4e9-a529-4031-9e0f-732035598496
+            authorization-grant-type: client_credentials
             scope: custom_mod
 
 server:
-    port: 8085
+  port: 8085
+
+application:
+  oauth-client:
+    scheme: http
+    host: localhost
+    port: 8080
+    endpoint: "/principal"
+    delay-between-retries: 5000
