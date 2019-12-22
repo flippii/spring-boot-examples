@@ -1,7 +1,7 @@
 package de.springframework.keycloak.authentication.security;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -12,17 +12,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Propagates logouts to Keycloak.
- *
- * Necessary because Spring Security 5 (currently) doesn't support
- * end-session-endpoints.
- */
 @Slf4j
-@RequiredArgsConstructor
 public class KeycloakLogoutHandler extends SecurityContextLogoutHandler {
 
     private final RestTemplate restTemplate;
+
+    public KeycloakLogoutHandler(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

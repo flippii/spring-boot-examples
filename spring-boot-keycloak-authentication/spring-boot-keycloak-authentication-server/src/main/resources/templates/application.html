@@ -4,7 +4,7 @@
 	  layout:decorate="~{layouts/layout}">
 
 <head>
-	<title>Index Page</title>
+	<title>Application Page</title>
 
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,17 +20,10 @@
 	<!-- Insert content into the layouts/layout.html -->
 	<th:block layout:fragment="content">
 		<div>
-			<h1>Index Page</h1>
-			<p>
-				Welcome to the Spring Boot Application! The time is: <strong th:text="${#temporals.format(now, 'dd/MMM/yyyy HH:mm')}">31/12/2015 15:00</strong>
-			</p>
-			<p>
-				<form action="logout" method="post" th:if="${principal}">
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-					<button class="btn btn-large btn-success">Logout</button>
-				</form>
-			</p>
+			<h1>Application Page</h1>
+			<div th:if="${principal}">
+				Current User: <span th:text="${principal.getName()}">Current User</span>
+			</div>
 		</div>
 	</th:block>
 </body>

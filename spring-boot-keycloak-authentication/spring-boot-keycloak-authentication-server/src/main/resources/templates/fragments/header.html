@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"  th:href="@{/}">Home</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/protected}">Application</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/admin}">Admin</a></li>
+                    <li th:if="${principal}"><a href="#" th:href="@{/account}">Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

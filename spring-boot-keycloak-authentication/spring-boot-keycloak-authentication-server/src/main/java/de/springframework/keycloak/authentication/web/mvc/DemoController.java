@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.Collections;
+import java.time.LocalDateTime;
+
+import static java.util.Collections.singletonMap;
 
 @Controller
 public class DemoController {
@@ -18,17 +20,18 @@ public class DemoController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/protected")
     public ModelAndView protectedPage(Principal principal) {
-        return new ModelAndView("app", Collections.singletonMap("principal", principal));
+        return new ModelAndView("application", singletonMap("principal", principal));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin")
     public ModelAndView adminPage(Principal principal) {
-        return new ModelAndView("admin", Collections.singletonMap("principal", principal));
+        return new ModelAndView("admin", singletonMap("principal", principal));
     }
 
     @GetMapping("/")
     public String unprotectedPage(Model model, Principal principal) {
+        model.addAttribute("now", LocalDateTime.now());
         model.addAttribute("principal", principal);
         return "index";
     }
@@ -41,7 +44,6 @@ public class DemoController {
 
         OidcUser user = (OidcUser) authToken.getPrincipal();
 
-        // Provides a back-link to the application
         return "redirect:" + user.getIssuer() + "/account?referrer=" + user.getIdToken().getAuthorizedParty();
     }
 

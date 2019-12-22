@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
 <head>
-<title>Admin Area</title>
+   <title>Admin Page</title>
+
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+   <link href="../static/css/core.css" th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+
+   <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+   <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </head>
 <body>
-   <h1>My cool App (Admin)</h1>
-   <div th:if="${principal}">
-      <p th:text="${principal.getName()}">Current User</p>
-   </div>
-   <a href="/">Home</a>
+   <!-- Insert content into the layouts/layout.html -->
+   <th:block layout:fragment="content">
+      <div>
+         <h1>Admin Page</h1>
+         <div th:if="${principal}">
+            Current User: <span th:text="${principal.getName()}">Current User</span>
+         </div>
+      </div>
+   </th:block>
 </body>
 </html>
