@@ -34,6 +34,7 @@
         <module>spring-boot-keycloak-credentials</module>
         <module>spring-boot-keycloak-authentication</module>
         <module>spring-boot-keycloak</module>
+        <module>spring-boot-monitoring-hystrix</module>
     </modules>
 
     <dependencyManagement>

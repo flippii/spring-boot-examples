@@ -1,0 +1,48 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+    name: hystrix-consumer-service
+  thymeleaf:
+    cache: false
+
+management:
+  server:
+    port: 8090
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8080
+
+feign:
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+  hystrix:
+    enabled: true
+
+eureka:
+  client:
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      cluster: HYSTRIX-CLUSTER
+
+producer:
+  service:
+    url: http://localhost:8081
+    path: /producer/api/v1

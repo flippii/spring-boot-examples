@@ -1,0 +1,39 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+    name: hystrix-dashboards
+
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 9085
+
+eureka:
+  client:
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      cluster: HYSTRIX-CLUSTER
+
+turbine:
+  aggregator:
+    cluster-config: HYSTRIX-CLUSTER
+  app-config: hystrix-producer-service,hystrix-consumer-service
+  cluster-name-expression: metadata['cluster']
+  combine-host-port: true
