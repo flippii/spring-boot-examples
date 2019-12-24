@@ -24,7 +24,7 @@ public class PersonService {
 
     @HystrixCommand(commandKey = "allPersonsFromDB", fallbackMethod = "getCachedAllPersons")
     public List<PersonDto> getAllPersons() {
-        log.info("Get all UserInfo");
+        log.info("Request to get all Persons.");
 
         List<Person> persons = personJpaRepository.findAll();
 
@@ -33,21 +33,21 @@ public class PersonService {
         return personMapper.map(persons);
     }
 
-    protected List<PersonDto> getCachedAllPersons() {
-        log.info("Retrieving all UserInfo from Redis");
+    private List<PersonDto> getCachedAllPersons() {
+        log.info("Request to get all Persons from Redis");
         return personMapper.map(cachePersonRepository.findAll());
     }
 
     private void setCachedPersons(List<Person> persons) {
         if (cachePersonRepository.isEmpty() && !persons.isEmpty()) {
-            log.info("UserInfoList not in Redis, insert it...");
+            log.info("Persons not in Redis, insert it.");
             persons.forEach(cachePersonRepository::save);
         }
     }
 
     @HystrixCommand(commandKey = "personByIdFromDB", fallbackMethod = "getCachedPerson")
     public Optional<PersonDto> getPersonById(Long id) {
-        log.info("Get UserInfo by id {}", id);
+        log.info("Request to get Person: {}.", id);
 
         Optional<Person> person = personJpaRepository.findById(id);
 
@@ -56,8 +56,8 @@ public class PersonService {
         return person.map(personMapper::map);
     }
 
-    protected Optional<PersonDto> getCachedPerson(Long id) {
-        log.info("Retrieving UserInfo by id {} from Redis", id);
+    private Optional<PersonDto> getCachedPerson(Long id) {
+        log.info("Retrieving Person: {} from Redis.", id);
 
         return cachePersonRepository.findById(id.toString())
                 .map(personMapper::map);
@@ -65,7 +65,7 @@ public class PersonService {
 
     private void setCachedUserInfoList(Person person) {
         if (!cachePersonRepository.findById(person.getId().toString()).isPresent()) {
-            log.info("UserInfo not in Redis, insert it...");
+            log.info("Person not in Redis, insert it.");
             cachePersonRepository.save(person);
         }
     }

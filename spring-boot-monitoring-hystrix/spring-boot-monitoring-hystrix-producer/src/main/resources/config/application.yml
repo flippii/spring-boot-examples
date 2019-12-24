@@ -1,13 +1,13 @@
 management:
-  endpoint:
-    shutdown:
-      enabled: true
-    health:
-      show-details: always
+  server:
+    port: 8091
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 info:
   app:
@@ -19,17 +19,8 @@ info:
       version: @java.version@
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
-  cloud:
-    consul:
-      discovery:
-        instance-id: ${spring.application.name}:${random.value}
-        healthCheckPath: /actuator/health
-        healthCheckInterval: 15s
-        healthCheckTimeout: 60s
-        health-check-critical-timeout: 5m
-        prefer-ip-address: true
+  application:
+    name: hystrix-producer-service
   jackson:
     deserialization:
       fail-on-unknown-properties: true
@@ -59,17 +50,25 @@ spring:
       hibernate.order_updates: true
       hibernate.query.fail_on_pagination_over_collection_fetch: true
       hibernate.query.in_clause_parameter_padding: true
-  security:
-    user:
-      name: actuator
-      password: actuator
-      roles: ACTUATOR_ADMIN
+  redis:
+    host: localhost
+    port: 32769
+  liquibase:
+    enabled: false
+    change-log: classpath:config/liquibase/master.xml
 
-application:
-  swagger:
-    v1:
-      title: Petclinic
-      description: REST API Petclinic
-      version: 1.0
-      groupName: petclinic-api-1.0
-      defaultIncludePattern: /api/v1/.*
+server:
+  servlet:
+    context-path: /producer
+
+eureka:
+  client:
+    enabled: true
+    registry-fetch-interval-seconds: 5
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      cluster: HYSTRIX-CLUSTER

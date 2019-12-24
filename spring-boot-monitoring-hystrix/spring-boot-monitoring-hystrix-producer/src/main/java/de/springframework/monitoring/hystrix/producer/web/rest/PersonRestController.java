@@ -22,13 +22,13 @@ public class PersonRestController {
 
     @GetMapping
     public List<PersonDto> getAllPersons() {
-        log.info("Get all UserInfo");
+        log.info("REST request to get all Persons.");
         return personService.getAllPersons();
     }
 
     @GetMapping("/{id}")
     public Optional<PersonDto> getPersonById(@PathVariable("id") Long id) {
-        log.info("Get UserInfo by id {}", id);
+        log.info("REST request to get Person: {}", id);
         return personService.getPersonById(id);
     }
 
