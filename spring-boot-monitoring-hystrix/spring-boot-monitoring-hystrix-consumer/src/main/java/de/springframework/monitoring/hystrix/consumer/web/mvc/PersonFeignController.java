@@ -17,6 +17,7 @@ public class PersonFeignController {
 
     @GetMapping
     public String index(Model model) {
+        model.addAttribute("path", "feign");
         model.addAttribute("persons", personService.getPersons());
         return "index";
     }

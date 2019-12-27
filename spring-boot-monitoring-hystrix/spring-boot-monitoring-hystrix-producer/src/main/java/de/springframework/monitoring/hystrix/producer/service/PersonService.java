@@ -22,8 +22,12 @@ public class PersonService {
     private final CachePersonRepository cachePersonRepository;
     private final PersonMapper personMapper;
 
-    @HystrixCommand(commandKey = "allPersonsFromDB", fallbackMethod = "getCachedAllPersons")
-    public List<PersonDto> getAllPersons() {
+    @HystrixCommand(
+            groupKey = "PersonService",
+            commandKey = "PersonService#getAllPersons",
+            fallbackMethod = "getCachedPersons"
+    )
+    public List<PersonDto> getPersons() {
         log.info("Request to get all Persons.");
 
         List<Person> persons = personJpaRepository.findAll();
@@ -33,7 +37,7 @@ public class PersonService {
         return personMapper.map(persons);
     }
 
-    private List<PersonDto> getCachedAllPersons() {
+    private List<PersonDto> getCachedPersons() {
         log.info("Request to get all Persons from Redis");
         return personMapper.map(cachePersonRepository.findAll());
     }
@@ -45,7 +49,11 @@ public class PersonService {
         }
     }
 
-    @HystrixCommand(commandKey = "personByIdFromDB", fallbackMethod = "getCachedPerson")
+    @HystrixCommand(
+            groupKey = "PersonService",
+            commandKey = "PersonService#getPersonById",
+            fallbackMethod = "getCachedPerson"
+    )
     public Optional<PersonDto> getPersonById(Long id) {
         log.info("Request to get Person: {}.", id);
 

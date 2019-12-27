@@ -22,5 +22,11 @@ scrape_configs:
 
     static_configs:
       - targets: ['192.168.178.24:8090']
-        labels:
-          application: 'hystrix-consumer-service'
+
+  - job_name: 'hystrix-producer-service'
+
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 10s
+
+    static_configs:
+      - targets: ['192.168.178.24:8091']

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @FeignClient(
-        name = "hystrix-producer-service",
+        name = "FeignPersonService",
         url = "${producer.service.url}",
         path = "${producer.service.path}/persons",
         fallbackFactory = FallbackFeignPersonServiceFactory.class

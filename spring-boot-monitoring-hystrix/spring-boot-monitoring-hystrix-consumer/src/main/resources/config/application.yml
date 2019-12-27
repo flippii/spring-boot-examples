@@ -1,14 +1,10 @@
-logging:
-  level:
-    root: INFO
-
 spring:
   application:
-    name: hystrix-dashboards
+    name: hystrix-consumer-service
+  thymeleaf:
+    cache: false
 
 management:
-  server:
-    port: 9090
   endpoints:
     web:
       exposure:
@@ -17,8 +13,14 @@ management:
     health:
       show-details: always
 
-server:
-  port: 9085
+feign:
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+  hystrix:
+    enabled: true
 
 eureka:
   client:
@@ -30,10 +32,3 @@ eureka:
     health-check-url-path: /actuator/health
     metadata-map:
       cluster: HYSTRIX-CLUSTER
-
-turbine:
-  aggregator:
-    cluster-config: HYSTRIX-CLUSTER
-  app-config: hystrix-producer-service,hystrix-consumer-service
-  cluster-name-expression: metadata['cluster']
-  combine-host-port: true

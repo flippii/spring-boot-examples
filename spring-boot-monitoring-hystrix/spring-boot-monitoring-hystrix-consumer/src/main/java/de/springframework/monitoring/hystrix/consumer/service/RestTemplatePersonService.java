@@ -27,7 +27,11 @@ public class RestTemplatePersonService {
         this.producerProperties = producerProperties;
     }
 
-    @HystrixCommand(fallbackMethod = "defaultPersons")
+    @HystrixCommand(
+            fallbackMethod = "defaultPersons",
+            groupKey = "RestTemplatePersonService",
+            commandKey = "RestTemplatePersonService#getPersons"
+    )
     public List<PersonDto> getPersons() {
         UriComponents uri = createUriBuilder()
                 .path("/persons")
@@ -37,12 +41,16 @@ public class RestTemplatePersonService {
                 .getBody();
     }
 
-    protected List<PersonDto> defaultPersons() {
+    private List<PersonDto> defaultPersons() {
         log.info("Fallback: get empty persons list.");
         return Collections.emptyList();
     }
 
-    @HystrixCommand(fallbackMethod = "defaultPersonById")
+    @HystrixCommand(
+            fallbackMethod = "defaultPersonById",
+            groupKey = "RestTemplatePersonService",
+            commandKey = "RestTemplatePersonService#getPersonById"
+    )
     public PersonDto getPersonById(Long id) {
         UriComponents uri = createUriBuilder()
                 .path("/persons/{id}")
@@ -51,7 +59,7 @@ public class RestTemplatePersonService {
         return restTemplate.getForObject(uri.toUri(), PersonDto.class);
     }
 
-    protected PersonDto defaultPersonById(Long id) {
+    private PersonDto defaultPersonById(Long id) {
         log.warn("Fallback: get ANONYMOUS person with id: {}.", id);
 
         return PersonDto.builder()

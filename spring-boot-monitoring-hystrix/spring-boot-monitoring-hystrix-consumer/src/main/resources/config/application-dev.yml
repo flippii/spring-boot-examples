@@ -1,0 +1,16 @@
+logging:
+  level:
+    de.springframework.monitoring.hystrix.consumer: INFO
+    root: INFO
+
+management:
+  server:
+    port: 8090
+
+server:
+  port: 8080
+
+producer:
+  service:
+    url: http://localhost:8081
+    path: /producer/api/v1

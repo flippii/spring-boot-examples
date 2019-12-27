@@ -35,10 +35,10 @@
 					</thead>
 					<tbody>
 					<tr th:if="${persons.isEmpty()}">
-						<td colspan="2"> No Books Available </td>
+						<td colspan="2">No Books Available</td>
 					</tr>
 					<tr th:each="person, rowStat : ${persons}" th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
-						<td><a th:href="@{/details/{id}(id=${person.id})}" th:text="${person.firstName}">Title</a></td>
+						<td><a th:href="@{'/' + ${path} + '/details/' + ${person.id}}" th:text="${person.firstName}">Title</a></td>
 						<td th:text="${person.lastName}">Author</td>
 					</tr>
 					</tbody>

@@ -4,13 +4,9 @@ logging:
 
 spring:
   application:
-    name: hystrix-consumer-service
-  thymeleaf:
-    cache: false
+    name: hystrix-dashboards
 
 management:
-  server:
-    port: 8090
   endpoints:
     web:
       exposure:
@@ -20,16 +16,7 @@ management:
       show-details: always
 
 server:
-  port: 8080
-
-feign:
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
-  hystrix:
-    enabled: true
+  port: 9080
 
 eureka:
   client:
@@ -42,7 +29,9 @@ eureka:
     metadata-map:
       cluster: HYSTRIX-CLUSTER
 
-producer:
-  service:
-    url: http://localhost:8081
-    path: /producer/api/v1
+turbine:
+  aggregator:
+    cluster-config: HYSTRIX-CLUSTER
+  app-config: hystrix-producer-service,hystrix-consumer-service
+  cluster-name-expression: metadata['cluster']
+  combine-host-port: true

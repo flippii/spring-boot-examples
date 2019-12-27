@@ -21,9 +21,9 @@ public class PersonRestController {
     private final PersonService personService;
 
     @GetMapping
-    public List<PersonDto> getAllPersons() {
+    public List<PersonDto> getPersons() {
         log.info("REST request to get all Persons.");
-        return personService.getAllPersons();
+        return personService.getPersons();
     }
 
     @GetMapping("/{id}")

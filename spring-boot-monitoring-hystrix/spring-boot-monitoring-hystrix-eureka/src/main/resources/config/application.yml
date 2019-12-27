@@ -7,8 +7,6 @@ spring:
     name: hystrix-eureka-server
 
 management:
-  server:
-    port: 9761
   endpoints:
     web:
       exposure:
