@@ -26,14 +26,13 @@
 * MongoDB Reactive oder Classic mit dynamischer Query Erstellung für Filter von Tabellen
 * API Gateway + OAuth 2 Security
 * Hystrix Example mit Collapser Bsp.
+* Hystring Dashboard für Grafana hinzufügen
 
 ### Updates
 
 * Readme Dateien zu jedem Beispiel hinzufügen.
 * Test Daten hinzufügen (eventuell Projekte auf DB umstellen).
 * Spring-Boot Dashboard in Grafana Provisoning hinzufügen.
-* Hystrix hinzufügen + Monitoring
-* Profiling von Microservices
 * Swagger zu jedem Service hinzufügen + Common Swagger Config
 
 ### Help
