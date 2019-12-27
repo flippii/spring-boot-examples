@@ -16,11 +16,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <dockerfile.version>1.4.12</dockerfile.version>
-        <docker.image.prefix>kgent</docker.image.prefix>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>de.springframework.examples</groupId>
@@ -84,14 +79,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>build-info</id>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

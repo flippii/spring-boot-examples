@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-boot-admin-ui-backend</artifactId>
+    <artifactId>spring-boot-monitoring-resilience4j-producer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Spring-Boot Admin-UI Backend</name>
-    <description>Spring-Boot Admin-UI REST Backend.</description>
+    <name>Spring-Boot Resilience4j Monitoring - Producer</name>
+    <description>Spring-Boot Producer for Resilience4j Monitoring with Grafana.</description>
 
     <parent>
         <groupId>de.springframework.examples</groupId>
-        <artifactId>spring-boot-admin-ui</artifactId>
+        <artifactId>spring-boot-monitoring-resilience4j</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -25,19 +25,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
 
@@ -56,19 +48,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>docker</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>dockerfile-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

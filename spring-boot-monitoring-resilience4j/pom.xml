@@ -3,11 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-boot-monitoring-consul</artifactId>
+    <artifactId>spring-boot-monitoring-resilience4j</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Spring-Boot Monitoring Consul</name>
+    <name>Spring-Boot Resilience4j Monitoring</name>
+    <description>Spring-Boot Resilience4j Monitoring with Grafana.</description>
 
     <parent>
         <groupId>de.springframework.examples</groupId>
@@ -16,7 +17,9 @@
     </parent>
 
     <modules>
-        <module>spring-boot-monitoring-consul-backend</module>
+        <module>spring-boot-monitoring-resilience4j-consumer</module>
+        <module>spring-boot-monitoring-resilience4j-eureka</module>
+        <module>spring-boot-monitoring-resilience4j-producer</module>
     </modules>
 
 </project>

@@ -25,6 +25,7 @@
 * Tracing mit Sleuth oder Jager-UI
 * MongoDB Reactive oder Classic mit dynamischer Query Erstellung für Filter von Tabellen
 * API Gateway + OAuth 2 Security
+* Hystrix Example mit Collapser Bsp.
 
 ### Updates
 
