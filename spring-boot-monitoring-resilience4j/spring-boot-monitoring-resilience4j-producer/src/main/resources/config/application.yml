@@ -136,7 +136,7 @@ resilience4j:
     configs:
       default:
         registerHealthIndicator: false
-        limitForPeriod: 10
+        limitForPeriod: 30
         limitRefreshPeriod: 1s
         timeoutDuration: 0
         eventConsumerBufferSize: 100

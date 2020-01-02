@@ -12,5 +12,6 @@ server:
 
 producer:
   service:
-    url: http://localhost:8081
+    #url: http://localhost:8081
+    url: http://resilience4j-producer-service
     path: /producer/api/v1
