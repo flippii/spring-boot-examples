@@ -28,6 +28,7 @@ public class RestPersonService implements PersonService {
     @Override
     @CircuitBreaker(name = PERSON_CLIENT, fallbackMethod = "defaultPersons")
     public List<PersonDto> getPersons() {
+        log.info("Request to get all Persons.");
         return personClient.getPersons();
     }
 
@@ -39,11 +40,12 @@ public class RestPersonService implements PersonService {
     @Override
     @CircuitBreaker(name = PERSON_CLIENT, fallbackMethod = "defaultPersonById")
     public PersonDto getPersonById(Long id) {
+        log.info("Request to get Person: {}.", id);
         return personClient.getPersonById(id);
     }
 
     private PersonDto defaultPersonById(Long id, Throwable ex) {
-        log.warn("Fallback: get ANONYMOUS person with id: {} ({}).", id, ex.getMessage());
+        log.info("Fallback: get ANONYMOUS person with id: {} ({}).", id, ex.getMessage());
         return getAnonymousPerson();
     }
 
