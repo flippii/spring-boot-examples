@@ -1,0 +1,145 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    diskspace:
+      enabled: false
+    circuitbreakers:
+      enabled: true
+    ratelimiters:
+      enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+        resilience4j.circuitbreaker.calls: true
+
+spring:
+  application:
+    name: resilience4j-producer-service
+  jackson:
+    serialization:
+      indent_output: true
+    deserialization:
+      fail-on-unknown-properties: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      poolName: Hikari-Master
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      minimum-idle: 5
+      maximum-pool-size: 20
+      auto-commit: false
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate.hbm2ddl.auto: validate
+      hibernate.format_sql: false
+      hibernate.id.new_generator_mappings: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.temp.use_jdbc_metadata_defaults: false
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+
+  liquibase:
+    enabled: false
+    change-log: classpath:config/liquibase/master.xml
+
+server:
+  servlet:
+    context-path: /producer
+
+eureka:
+  client:
+    enabled: true
+    registry-fetch-interval-seconds: 5
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    health-check-url-path: /actuator/health
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 1s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        recordExceptions:
+          - org.springframework.dao.DataAccessException
+          - org.springframework.transaction.TransactionException
+        ignoreExceptions:
+          - de.springframework.monitoring.resilience4j.producer.exceptions.BusinessException
+    instances:
+      personService:
+        baseConfig: default
+
+  retry:
+    configs:
+      default:
+        maxRetryAttempts: 2
+        waitDuration: 100
+        retryExceptions:
+          - org.springframework.dao.DataAccessException
+          - org.springframework.transaction.TransactionException
+        ignoreExceptions:
+          - de.springframework.monitoring.resilience4j.producer.exceptions.BusinessException
+    instances:
+      personService:
+        baseConfig: default
+
+  bulkhead:
+    configs:
+      default:
+        maxConcurrentCalls: 30
+    instances:
+      personService:
+        baseConfig: default
+
+  thread-pool-bulkhead:
+    configs:
+      default:
+        maxThreadPoolSize: 4
+        coreThreadPoolSize: 2
+        queueCapacity: 2
+    instances:
+      personService:
+        baseConfig: default
+
+  ratelimiter:
+    configs:
+      default:
+        registerHealthIndicator: false
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+        eventConsumerBufferSize: 100
+    instances:
+      personService:
+        baseConfig: default

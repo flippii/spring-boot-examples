@@ -33,8 +33,6 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
     health-check-url-path: /actuator/health
-    metadata-map:
-      cluster: HYSTRIX-CLUSTER
 
 resilience4j:
   circuitbreaker:
@@ -49,8 +47,9 @@ resilience4j:
         failureRateThreshold: 50
         eventConsumerBufferSize: 10
         recordExceptions:
-          - org.springframework.web.client.RestClientException
-          - java.io.IOException
+          - java.lang.IllegalStateException
+          - org.apache.http.conn.HttpHostConnectException
+          - org.springframework.web.client.ResourceAccessException
         ignoreExceptions:
           - de.springframework.monitoring.resilience4j.consumer.exceptions.BusinessException
     instances:
@@ -63,8 +62,9 @@ resilience4j:
         maxRetryAttempts: 2
         waitDuration: 100
         retryExceptions:
-          - org.springframework.web.client.RestClientException
-          - java.io.IOException
+          - java.lang.IllegalStateException
+          - org.apache.http.conn.HttpHostConnectException
+          - org.springframework.web.client.ResourceAccessException
         ignoreExceptions:
           - de.springframework.monitoring.resilience4j.consumer.exceptions.BusinessException
     instances:
@@ -74,8 +74,7 @@ resilience4j:
   bulkhead:
     configs:
       default:
-        maxWaitDuration: 10ms
-        maxConcurrentCalls: 20
+        maxConcurrentCalls: 30
     instances:
       personClient:
         baseConfig: default
@@ -101,3 +100,8 @@ resilience4j:
     instances:
       personClient:
         baseConfig: default
+
+rest:
+  template:
+    connectTimeout: 1
+    readTimeout: 1

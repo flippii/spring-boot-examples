@@ -42,6 +42,7 @@
         <module>spring-boot-keycloak</module>
         <module>spring-boot-monitoring-hystrix</module>
         <module>spring-boot-monitoring-resilience4j</module>
+        <module>spring-boot-api-gateway</module>
     </modules>
 
     <dependencyManagement>

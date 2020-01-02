@@ -1,4 +1,4 @@
-package de.springframework.monitoring.resilience4j.consumer.configuration;
+package de.springframework.monitoring.resilience4j.producer.configuration;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
