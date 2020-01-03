@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @FeignClient(
-        name = "FeignPersonService",
-        url = "${producer.service.url}",
+        name = "${producer.service.host}",
         path = "${producer.service.path}/persons",
         fallbackFactory = FallbackFeignPersonServiceFactory.class
 )

@@ -17,6 +17,13 @@ spring:
     driver-class-name: org.postgresql.Driver
     hikari:
       poolName: Hikari-Master
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      minimum-idle: 5
+      maximum-pool-size: 20
+      auto-commit: false
   jpa:
     database: POSTGRESQL
     show-sql: false
@@ -50,10 +57,7 @@ server:
 
 eureka:
   client:
-    enabled: true
     registry-fetch-interval-seconds: 5
-    service-url:
-      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     lease-renewal-interval-in-seconds: 10
     health-check-url-path: /actuator/health

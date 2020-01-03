@@ -9,7 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "producer.service", ignoreUnknownFields = false)
 public class ProducerProperties {
 
-    private String url;
+    private String scheme;
+    private String host;
     private String path;
 
 }

@@ -1,12 +1,3 @@
-## Building the Example
-Run the following command to build the example:
-
-    mvn clean install -DskiptTests=true -Pdocker
-
-Run the following command to run with Docker:
-
-    docker-compose -f app.yml up
-
 ## Links
 
 ### Eureka

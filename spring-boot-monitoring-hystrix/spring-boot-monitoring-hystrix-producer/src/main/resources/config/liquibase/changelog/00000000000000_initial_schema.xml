@@ -8,6 +8,10 @@
 
     <property name="autoIncrement" value="true"/>
 
+    <changeSet id="00000000000000" author="kgent" dbms="postgresql,oracle">
+        <createSequence sequenceName="hibernate_sequence" startValue="20000" incrementBy="1"/>
+    </changeSet>
+
     <changeSet id="00000000000001" author="kgent">
         <createTable tableName="persons">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">

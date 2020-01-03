@@ -26,16 +26,20 @@ public class FallbackFeignPersonServiceFactory implements FallbackFactory<FeignP
         @Override
         public List<PersonDto> getPersons() {
             log.info("Fallback: get empty persons list.");
-            return Collections.emptyList();
+            return Collections.singletonList(getAnonymousPerson());
         }
 
         @Override
         public PersonDto getPersonById(Long id) {
-            log.warn("Fallback: get ANONYMOUS person with id: {}.", id);
+            log.info("Fallback: get ANONYMOUS person with id: {}.", id);
+            return getAnonymousPerson();
+        }
 
+        private PersonDto getAnonymousPerson() {
             return PersonDto.builder()
-                    .id(id)
+                    .id(0L)
                     .firstName("ANONYMOUS")
+                    .lastName("no")
                     .build();
         }
 

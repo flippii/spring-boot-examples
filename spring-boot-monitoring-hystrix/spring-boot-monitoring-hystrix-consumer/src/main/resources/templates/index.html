@@ -29,17 +29,17 @@
 				<table class="table table-bordered">
 					<thead>
 					<tr>
-						<th>Title</th>
-						<th>Author</th>
+						<th>First Name</th>
+						<th>Last Name</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr th:if="${persons.isEmpty()}">
-						<td colspan="2">No Books Available</td>
+						<td colspan="2">No Persons Available</td>
 					</tr>
 					<tr th:each="person, rowStat : ${persons}" th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
-						<td><a th:href="@{'/' + ${path} + '/details/' + ${person.id}}" th:text="${person.firstName}">Title</a></td>
-						<td th:text="${person.lastName}">Author</td>
+						<td><a th:href="@{'/' + ${path} + '/details/' + ${person.id}}" th:text="${person.firstName}">First Name</a></td>
+						<td th:text="${person.lastName}">Last Name</td>
 					</tr>
 					</tbody>
 				</table>

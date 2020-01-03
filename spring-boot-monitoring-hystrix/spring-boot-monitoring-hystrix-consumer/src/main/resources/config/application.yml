@@ -24,11 +24,20 @@ feign:
 
 eureka:
   client:
-    service-url:
-      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
     registry-fetch-interval-seconds: 5
   instance:
     lease-renewal-interval-in-seconds: 10
     health-check-url-path: /actuator/health
     metadata-map:
       cluster: HYSTRIX-CLUSTER
+
+rest:
+  template:
+    connectTimeout: 1
+    readTimeout: 1
+
+producer:
+  service:
+    scheme: http
+    host: hystrix-producer-service
+    path: /producer/api/v1

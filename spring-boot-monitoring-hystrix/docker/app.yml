@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+  hystrix-consumer:
+    image: kgent/spring-boot-monitoring-hystrix-consumer:0.0.1-SNAPSHOT
+    container_name: 'consumer'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 8080:8080
+      - 8090:8090
+    depends_on:
+      - eureka
+
+  hystrix-producer:
+    image: kgent/spring-boot-monitoring-hystrix-producer:0.0.1-SNAPSHOT
+    container_name: 'producer'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 8081:8081
+      - 8091:8091
+    depends_on:
+      - eureka
+      - app-redis
+      - app-postgresql
+
+  hystrix-dashboards:
+    image: kgent/spring-boot-monitoring-hystrix-dashboards:0.0.1-SNAPSHOT
+    container_name: 'dashboards'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 9080:9080
+
+  eureka:
+    image: kgent/spring-boot-monitoring-hystrix-eureka:0.0.1-SNAPSHOT
+    container_name: 'eureka'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 8761:8761
+
+  app-redis:
+    extends:
+      file: redis.yml
+      service: redis
+
+  app-postgresql:
+    extends:
+      file: postgresql.yml
+      service: postgresql

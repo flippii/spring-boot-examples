@@ -1,7 +1,3 @@
-logging:
-  level:
-    root: INFO
-
 spring:
   application:
     name: hystrix-dashboards
@@ -15,13 +11,8 @@ management:
     health:
       show-details: always
 
-server:
-  port: 9080
-
 eureka:
   client:
-    service-url:
-      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
     registry-fetch-interval-seconds: 5
   instance:
     lease-renewal-interval-in-seconds: 10
