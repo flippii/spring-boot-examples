@@ -27,8 +27,6 @@ management:
 
 eureka:
   client:
-    service-url:
-      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
     registry-fetch-interval-seconds: 5
   instance:
     lease-renewal-interval-in-seconds: 10
@@ -105,3 +103,8 @@ rest:
   template:
     connectTimeout: 1
     readTimeout: 1
+
+producer:
+  service:
+    url: http://resilience4j-producer-service
+    path: /producer/api/v1

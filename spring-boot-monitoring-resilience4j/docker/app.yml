@@ -1,0 +1,62 @@
+version: '2'
+
+services:
+  resilience4j-consumer:
+    image: kgent/spring-boot-monitoring-resilience4j-consumer:0.0.1-SNAPSHOT
+    container_name: 'consumer'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 8080:8080
+      - 8090:8090
+    depends_on:
+      - eureka
+
+  resilience4j-producer:
+    image: kgent/spring-boot-monitoring-resilience4j-producer:0.0.1-SNAPSHOT
+    container_name: 'producer'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 8081:8081
+      - 8091:8091
+    depends_on:
+      - eureka
+      - app-redis
+      - app-postgresql
+
+  eureka:
+    image: kgent/spring-boot-monitoring-resilience4j-eureka:0.0.1-SNAPSHOT
+    container_name: 'eureka'
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+    ports:
+      - 8761:8761
+
+  app-redis:
+    extends:
+      file: redis.yml
+      service: redis
+
+  app-postgresql:
+    extends:
+      file: postgresql.yml
+      service: postgresql
+
+  app-prometheus:
+    extends:
+      file: monitoring.yml
+      service: prometheus
+
+  app-grafana:
+    extends:
+      file: monitoring.yml
+      service: grafana
+    depends_on:
+      - app-prometheus

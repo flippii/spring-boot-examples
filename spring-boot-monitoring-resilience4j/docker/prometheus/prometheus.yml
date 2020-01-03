@@ -21,7 +21,7 @@ scrape_configs:
     scrape_interval: 20s
 
     consul_sd_configs:
-      - server: '192.168.178.24:8761'
+      - server: 'eureka:8761'
     relabel_configs:
       - source_labels: ['__meta_consul_tags']
         action: keep
