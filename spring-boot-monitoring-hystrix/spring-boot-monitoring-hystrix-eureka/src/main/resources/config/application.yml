@@ -5,6 +5,9 @@ logging:
 spring:
   application:
     name: hystrix-eureka-server
+  mvc:
+    async:
+      request-timeout: 35000     #Prometheus use long Polling
 
 management:
   endpoints:

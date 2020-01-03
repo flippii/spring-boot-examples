@@ -58,3 +58,15 @@ services:
     extends:
       file: postgresql.yml
       service: postgresql
+
+  app-prometheus:
+    extends:
+      file: monitoring.yml
+      service: prometheus
+
+  app-grafana:
+    extends:
+      file: monitoring.yml
+      service: grafana
+    depends_on:
+      - app-prometheus

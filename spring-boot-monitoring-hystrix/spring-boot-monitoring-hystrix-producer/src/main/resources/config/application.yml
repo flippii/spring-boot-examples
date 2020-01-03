@@ -10,6 +10,9 @@ management:
 spring:
   application:
     name: hystrix-producer-service
+  mvc:
+    async:
+      request-timeout: 35000
   jackson:
     deserialization:
       fail-on-unknown-properties: true

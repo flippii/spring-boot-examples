@@ -15,18 +15,18 @@ scrape_configs:
     static_configs:
       - targets: ['127.0.0.1:9090']
 
-  - job_name: 'hystrix-consumer-service'
+  - job_name: 'eureka'
 
     metrics_path: '/actuator/prometheus'
-    scrape_interval: 10s
+    scrape_interval: 20s
 
-    static_configs:
-      - targets: ['192.168.178.24:8090']
-
-  - job_name: 'hystrix-producer-service'
-
-    metrics_path: '/actuator/prometheus'
-    scrape_interval: 10s
-
-    static_configs:
-      - targets: ['192.168.178.24:8091']
+    consul_sd_configs:
+      - server: 'eureka:8761'
+    relabel_configs:
+      - source_labels: ['__meta_consul_tags']
+        action: keep
+      - source_labels: ['__meta_consul_service']
+        target_label: job
+      - source_labels: ['__meta_consul_address', '__meta_consul_service_metadata_management_port']
+        separator: ':'
+        target_label: __address__

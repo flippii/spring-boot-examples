@@ -1,6 +1,9 @@
 spring:
   application:
     name: hystrix-consumer-service
+  mvc:
+    async:
+      request-timeout: 35000
   thymeleaf:
     cache: false
 
