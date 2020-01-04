@@ -25,6 +25,7 @@ public class PersonService {
     @HystrixCommand(
             groupKey = "PersonService",
             commandKey = "PersonService#getAllPersons",
+            threadPoolKey = "PersonService",
             fallbackMethod = "getCachedPersons"
     )
     public List<PersonDto> getPersons() {
@@ -52,6 +53,7 @@ public class PersonService {
     @HystrixCommand(
             groupKey = "PersonService",
             commandKey = "PersonService#getPersonById",
+            threadPoolKey = "PersonService",
             fallbackMethod = "getCachedPerson"
     )
     public Optional<PersonDto> getPersonById(Long id) {

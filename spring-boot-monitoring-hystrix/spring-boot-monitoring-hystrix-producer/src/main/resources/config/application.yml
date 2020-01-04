@@ -54,6 +54,23 @@ spring:
     enabled: false
     change-log: classpath:config/liquibase/master.xml
 
+hystrix:
+  threadpool:
+    default:
+      coreSize: 100   # Maximum number of concurrent requests when using thread pools (Default: 10)
+      maxQueueSize: -1   # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+      queueSizeRejectionThreshold: 5   # Queue size rejection threshold (Default: 5)
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 30000
+        requestVolumeThreshold: 3
+      execution:
+        isolation:
+          strategy: THREAD   # strategy: SEMAPHORE, no thread pool but timeout handling stops to work
+          thread:
+            timeoutInMilliseconds: 4000
+
 server:
   servlet:
     context-path: /producer
