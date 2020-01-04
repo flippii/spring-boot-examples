@@ -1209,8 +1209,8 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "192.168.178.24:9080",
-          "value": "192.168.178.24:9080"
+          "text": "localhost:9080",
+          "value": "localhost:9080"
         },
         "datasource": "Prometheus",
         "definition": "label_values(resilience4j_circuitbreaker_state, instance)",
