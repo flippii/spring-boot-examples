@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.time.Duration;
 
 @Setter
-@ConfigurationProperties(prefix = "rest.template", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "client.rest", ignoreUnknownFields = false)
 public class RestTemplateProperties {
 
     private long connectTimeout = 2;

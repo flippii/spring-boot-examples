@@ -1,5 +1,6 @@
 package de.springframework.monitoring.hystrix.consumer.service;
 
+import de.springframework.monitoring.hystrix.consumer.configuration.FeignConfiguration;
 import de.springframework.monitoring.hystrix.consumer.service.dto.PersonDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,8 @@ import java.util.List;
 @FeignClient(
         name = "${producer.service.host}",
         path = "${producer.service.path}/persons",
-        fallbackFactory = FallbackFeignPersonServiceFactory.class
+        fallbackFactory = FallbackFeignPersonServiceFactory.class,
+        configuration = FeignConfiguration.class
 )
 public interface FeignPersonService {
 

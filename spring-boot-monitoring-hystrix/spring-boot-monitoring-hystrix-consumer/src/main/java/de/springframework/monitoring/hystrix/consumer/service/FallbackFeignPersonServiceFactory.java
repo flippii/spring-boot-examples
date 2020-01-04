@@ -14,10 +14,13 @@ import java.util.List;
 public class FallbackFeignPersonServiceFactory implements FallbackFactory<FeignPersonService> {
 
     @Override
-    public FeignPersonService create(Throwable cause) {
-        if (cause instanceof FeignException && ((FeignException) cause).status() == 404) {
-            log.error("A FeignException occurred: {}.", cause.getMessage(), cause);
+    public FeignPersonService create(Throwable th) {
+        if (th instanceof FeignException && ((FeignException) th).status() == 404) {
+            log.error("A FeignException occurred: {}.", th.getMessage(), th);
+        } else {
+            log.info("Feign exception in fallback factory ({}).", th.getMessage());
         }
+
         return new FallbackFeignPersonService();
     }
 

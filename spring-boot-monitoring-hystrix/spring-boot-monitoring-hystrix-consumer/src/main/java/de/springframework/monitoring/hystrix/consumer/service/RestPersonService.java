@@ -17,32 +17,34 @@ public class RestPersonService {
     private final PersonClient personClient;
 
     @HystrixCommand(
-            fallbackMethod = "defaultPersons",
-            groupKey = "RestTemplatePersonService",
-            commandKey = "RestTemplatePersonService#getPersons"
+            groupKey = "RestPersonService",
+            commandKey = "RestPersonService#getPersons",
+            threadPoolKey = "RestPersonService",
+            fallbackMethod = "defaultPersons"
     )
     public List<PersonDto> getPersons() {
         log.info("Request to get all Persons.");
         return personClient.getPersons();
     }
 
-    private List<PersonDto> defaultPersons() {
-        log.info("Fallback: get empty persons list.");
+    private List<PersonDto> defaultPersons(Throwable th) {
+        log.info("Fallback: get empty persons list ({}).", th.getMessage());
         return Collections.singletonList(getAnonymousPerson());
     }
 
     @HystrixCommand(
-            fallbackMethod = "defaultPersonById",
-            groupKey = "RestTemplatePersonService",
-            commandKey = "RestTemplatePersonService#getPersonById"
+            groupKey = "RestPersonService",
+            commandKey = "RestPersonService#getPersonById",
+            threadPoolKey = "RestPersonService",
+            fallbackMethod = "defaultPersonById"
     )
     public PersonDto getPersonById(Long id) {
         log.info("Request to get Person: {}.", id);
         return personClient.getPersonById(id);
     }
 
-    private PersonDto defaultPersonById(Long id) {
-        log.info("Fallback: get ANONYMOUS person with id: {}.", id);
+    private PersonDto defaultPersonById(Long id, Throwable th) {
+        log.info("Fallback: get ANONYMOUS person with id: {} ({}).", id, th.getMessage());
         return getAnonymousPerson();
     }
 

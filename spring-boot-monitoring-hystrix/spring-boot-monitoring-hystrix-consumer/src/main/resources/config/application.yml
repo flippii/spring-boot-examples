@@ -17,6 +17,11 @@ management:
       show-details: always
 
 feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
   compression:
     request:
       enabled: true
@@ -24,6 +29,31 @@ feign:
       enabled: true
   hystrix:
     enabled: true
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 100   # Maximum number of concurrent requests when using thread pools (Default: 10)
+      maxQueueSize: -1   # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+      queueSizeRejectionThreshold: 5   # Queue size rejection threshold (Default: 5)
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 30000
+        requestVolumeThreshold: 3
+      execution:
+        isolation:
+          strategy: THREAD   # strategy: SEMAPHORE, no thread pool but timeout handling stops to work
+          thread:
+            timeoutInMilliseconds: 4000
+
+ribbon:
+  serverListRefreshInterval: 1000   # Interval to refresh the server list from the source
+  maxAutoRetries: 1   # Max number of retries on the same server (excluding the first try)
+  maxAutoRetriesNextServer: 1   # Max number of next servers to retry (excluding the first server)
+  ServerListRefreshInterval: 1000   # Interval to refresh the server list from the source
+  MaxAutoRetries: 1    # Max number of retries on the same server (excluding the first try)
+  MaxAutoRetriesNextServer: 1   # Max number of next servers to retry (excluding the first server)
 
 eureka:
   client:
@@ -34,10 +64,14 @@ eureka:
     metadata-map:
       cluster: HYSTRIX-CLUSTER
 
-rest:
-  template:
+client:
+  rest:
     connectTimeout: 1
     readTimeout: 1
+  feign:
+    period: 100
+    maxPeriod: 1
+    maxAttempts: 2
 
 producer:
   service:

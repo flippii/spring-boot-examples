@@ -13,8 +13,8 @@ public class RestTemplateConfiguration {
 
     private final RestTemplateProperties restTemplateProperties;
 
-    @LoadBalanced
     @Bean
+    @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder
                 .setConnectTimeout(restTemplateProperties.getConnectTimeout())
