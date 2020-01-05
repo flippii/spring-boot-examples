@@ -6,6 +6,15 @@ management:
   endpoint:
     health:
       show-details: always
+  metrics:
+    distribution:
+      percentiles:
+        hystrix: 0.50,0.90,0.95,0.99
+      percentiles-histogram:
+        http.server.requests: true
+        hystrix: true
+      sla:
+        http.server.requests: 50ms
 
 spring:
   application:
